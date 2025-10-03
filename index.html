@@ -1,17 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo - YadiM</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Todo - YadiM</title>
 
-    <!-- CSS External -->
-    <link rel="stylesheet" href="style.css">
+  <!-- CSS External -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Tailwind CSS (browser build) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
 </head>
+<body class="min-h-screen bg-gray-50 text-gray-800">
+  <div class="max-w-3xl mx-auto p-6">
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold">Yadi Todo App</h1>
+    </header>
 
-<body>
-    
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    <main>
+      <!-- Alert / validation messages -->
+      <section id="todo-nolist" role="status" aria-live="polite" class="mb-4"></section>
+
+      <!-- Add Todo -->
+      <section class="mb-6">
+        <form id="todo-form" class="flex gap-3 items-center" onsubmit="return false;">
+          <label for="todo-input" class="sr-only">Todo</label>
+          <input id="todo-input" type="text" placeholder="Add your todo..." class="flex-1 border rounded px-3 py-2" />
+
+          <label for="todo-date" class="sr-only">Date</label>
+          <input id="todo-date" type="date" class="border rounded px-3 py-2" />
+
+          <button id="add-button" type="button" onclick="addTodo()" class="bg-blue-600 text-white px-4 py-2 rounded">
+            Add
+          </button>
+        </form>
+      </section>
+
+      <!-- Actions: filter (left) and delete all (right) -->
+      <section class="mb-4">
+        <div class="flex justify-between items-center">
+          <button id="filter" type="button" class="px-3 py-1 bg-blue-500 text-white rounded">Filter</button>
+          <button id="deleteAll" type="button" class="px-3 py-1 bg-red-500 text-white rounded">Delete All</button>
+        </div>
+
+        <!-- Filter panel (hidden by default) -->
+        <div id="filter-panel" class="hidden mt-3 bg-white p-3 border rounded flex flex-wrap gap-3 items-center">
+          <label for="filter-input" class="sr-only">Search tasks</label>
+          <input id="filter-input" type="text" placeholder="Search task..." class="border rounded px-3 py-2 flex-1 min-w-[160px]" />
+
+          <label for="filter-date" class="sr-only">Filter by date</label>
+          <input id="filter-date" type="date" class="border rounded px-3 py-2" />
+
+          <button id="clear-filter" type="button" class="px-3 py-1 bg-gray-200 rounded">Clear</button>
+        </div>
+      </section>
+
+      <!-- Todo list -->
+      <section>
+        <ul id="todo-list" class="space-y-3 mt-4 list-none p-0">
+          <li class="text-center text-gray-500">No todos yet. Add one above!</li>
+        </ul>
+      </section>
+    </main>
+
+    <div id="delete-modal" class="hidden fixed inset-0 z-50 items-center flex justify-center">
+  <!-- overlay -->
+  <div id="delete-modal-overlay" class="absolute inset-0 bg-black/50"></div>
+
+  <!-- dialog -->
+  <div role="dialog" aria-modal="true" aria-labelledby="delete-modal-title"
+       class="relative bg-surface text-text rounded-lg shadow-lg w-full max-w-md mx-4">
+    <div class="p-5">
+      <h3 id="delete-modal-title" class="text-lg font-bold mb-2">Confirm delete all</h3>
+      <p class="text-sm text-muted mb-4">This will permanently remove all todos. This action cannot be undone.</p>
+      <div class="flex gap-3 justify-end">
+        <button id="cancel-delete" type="button" class="px-3 py-2 rounded bg-gray-600 text-text">Cancel</button>
+        <button id="confirm-delete" type="button" class="px-3 py-2 rounded bg-red-600 text-white">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <footer class="mt-8 text-sm text-gray-600 flex justify-center">
+      <p>&copy; 2025 Yadi Todo App</p>
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/script.js"></script>
 </body>
 </html>

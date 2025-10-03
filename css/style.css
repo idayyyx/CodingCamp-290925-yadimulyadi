@@ -1,0 +1,198 @@
+/* Theme & variables */
+:root{
+    --bg: #1e1e2d;
+    --panel: #27293d;
+    --muted: #9aa0bd;
+    --accent: #9055ff;
+    --accent-600: #7a3ee6;
+    --danger: #ff5555;
+    --card-shadow: rgba(0,0,0,0.45);
+    --surface: #343753;
+    --border: #4a4d6b;
+    --text: #E0E0E0;
+}
+
+/* Reset / base */
+* { box-sizing: border-box; }
+html,body { height:100%; }
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;     /* added: allow column child to fill vertically */
+    min-height: 100vh;        /* added: ensure body is full viewport height */
+    padding: 20px;
+    transition: background .25s, color .25s;
+}
+
+/* App container (matches HTML wrapper + main) */
+div.max-w-3xl, main {
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Card / main panel */
+main {
+    background: var(--panel);
+    padding: 28px;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px var(--card-shadow);
+    margin: 18px 0;
+    color: var(--text);
+    flex: 1 0 auto;           /* added: let main grow to push footer to bottom */
+}
+
+/* App container (matches HTML wrapper + main) */
+div.max-w-3xl, main {
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Make page a column so footer sticks to bottom */
+div.max-w-3xl {
+    display: flex;            /* added */
+    flex-direction: column;   /* added */
+    min-height: calc(100vh - 40px); /* added: account for body padding (20px top + bottom) */
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 14px;
+}
+header h1 { margin:0 0 6px; font-weight:700; font-size:1.9rem; }
+header p { margin:0; color:var(--muted); font-size:.95rem; }
+
+/* Status / validation */
+#todo-nolist {
+    min-height: 1.25rem;
+    color: #ffdede;
+    font-size: .95rem;
+}
+
+/* Form layout */
+#todo-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 14px;
+}
+#todo-input { flex:1 1 auto; min-width:140px; }
+#todo-date { width:170px; }
+
+/* Inputs */
+#todo-input, #todo-date, #filter-input, #filter-date {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 0.98rem;
+    outline: none;
+    transition: box-shadow .15s, border-color .15s;
+}
+#todo-input:focus, #filter-input:focus, #todo-date:focus, #filter-date:focus {
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    border-color: var(--accent);
+}
+
+/* Buttons base */
+button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+    transition: transform .08s ease, background-color .12s ease;
+}
+button:active { transform: translateY(1px); }
+
+/* Specific buttons */
+#add-button {
+    background: var(--accent);
+    color: #fff;
+}
+#add-button:hover { background: var(--accent-600); }
+
+#filter {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 9px 12px;
+}
+#filter:hover { background: rgba(144,85,255,.06); }
+
+#deleteAll {
+    background: var(--danger);
+    color: #fff;
+    padding: 9px 18px;
+}
+#deleteAll:hover { background: #e63e3e; }
+
+#clear-filter {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid transparent;
+}
+#clear-filter:hover { color: var(--text); }
+
+/* Actions row */
+section.mb-4 > .flex {
+    gap: 10px;
+    align-items: center;
+}
+
+/* Filter panel */
+#filter-panel {
+    margin-top: 12px;
+    background: rgba(255,255,255,0.02);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.03);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.hidden { display: none !important; }
+
+/* Todo list */
+#todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#todo-list li {
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+    border: 1px solid rgba(255,255,255,0.03);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#todo-list li p { margin:0; }
+#todo-list li .font-bold { font-weight:700; }
+#todo-list li .text-sm { color: var(--muted); font-size:.92rem; }
+
+/* Small screens */
+@media (max-width:600px) {
+    #todo-form { flex-direction: column; align-items: stretch; }
+    #todo-date { width:100%; }
+    #filter-panel { flex-direction: column; align-items: stretch; }
+    #deleteAll { width: 100%; }
+}
+
+/* Utility */
+.sr-only { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
